@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /config/
-Disallow: /database/
-Disallow: /documentation/
-Disallow: /storage/
-Sitemap: https://YOUR-LIVE-DOMAIN/sitemap.php
+
+Sitemap: https://mtzionssmubende.noscamcoin.org/sitemap.php
