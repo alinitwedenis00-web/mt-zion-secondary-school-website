@@ -1,22 +1,94 @@
 <?php
-require_once __DIR__ . '/config/site.php';
-header('Content-Type: application/xml; charset=utf-8');
-$base = SITE_URL;
+/**
+ * XML Sitemap
+ * Mt Zion Secondary School, Mubende
+ */
+
+// Prevent PHP warnings from appearing inside the XML output.
+ini_set('display_errors', '0');
+error_reporting(0);
+
+// Set XML content type.
+header('Content-Type: application/xml; charset=UTF-8');
+
+// Website domain.
+$domain = 'https://mtzionssmubende.noscamcoin.org';
+
+// Public website pages.
 $pages = [
-    ['/', 'weekly', '1.0'],
-    ['/about.php', 'monthly', '0.8'],
-    ['/board.php', 'monthly', '0.6'],
-    ['/staff.php', 'monthly', '0.7'],
-    ['/services.php', 'monthly', '0.8'],
-    ['/admissions.php', 'weekly', '0.9'],
-    ['/gallery.php', 'weekly', '0.7'],
-    ['/portfolio.php', 'monthly', '0.6'],
-    ['/news.php', 'weekly', '0.8'],
-    ['/contact.php', 'yearly', '0.7'],
+    [
+        'url' => '/',
+        'changefreq' => 'weekly',
+        'priority' => '1.0'
+    ],
+    [
+        'url' => '/about.php',
+        'changefreq' => 'monthly',
+        'priority' => '0.8'
+    ],
+    [
+        'url' => '/board.php',
+        'changefreq' => 'monthly',
+        'priority' => '0.6'
+    ],
+    [
+        'url' => '/staff.php',
+        'changefreq' => 'monthly',
+        'priority' => '0.7'
+    ],
+    [
+        'url' => '/admissions.php',
+        'changefreq' => 'weekly',
+        'priority' => '0.9'
+    ],
+    [
+        'url' => '/gallery.php',
+        'changefreq' => 'weekly',
+        'priority' => '0.7'
+    ],
+    [
+        'url' => '/portfolio.php',
+        'changefreq' => 'monthly',
+        'priority' => '0.6'
+    ],
+    [
+        'url' => '/news.php',
+        'changefreq' => 'weekly',
+        'priority' => '0.8'
+    ],
+    [
+        'url' => '/contact.php',
+        'changefreq' => 'yearly',
+        'priority' => '0.7'
+    ]
 ];
+
+// Start XML output.
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-foreach ($pages as [$path, $frequency, $priority]) {
-    echo '  <url><loc>' . htmlspecialchars($base . $path, ENT_XML1, 'UTF-8') . '</loc><changefreq>' . $frequency . '</changefreq><priority>' . $priority . '</priority></url>' . "\n";
+
+// Generate sitemap entries.
+foreach ($pages as $page) {
+
+    $url = $domain . $page['url'];
+
+    echo "    <url>\n";
+
+    echo "        <loc>" .
+        htmlspecialchars($url, ENT_XML1, 'UTF-8') .
+        "</loc>\n";
+
+    echo "        <changefreq>" .
+        $page['changefreq'] .
+        "</changefreq>\n";
+
+    echo "        <priority>" .
+        $page['priority'] .
+        "</priority>\n";
+
+    echo "    </url>\n";
 }
-echo "</urlset>\n";
+
+// Close XML.
+echo '</urlset>';
